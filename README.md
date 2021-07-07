@@ -10,4 +10,3 @@
 1. `React js` - JavaScript-библиотека<br>
 2. `Axios` - JavaScript-библиотека, основанная на обещаниях, для выполнения HTTP-запросов<br>
 3. `React-router-dom` - навигация<br>
-4. `Sequelize` - ORM для реляционных баз данных на Node.js<br>
