@@ -1,15 +1,15 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {Switch, Route, Redirect} from 'react-router-dom'
 import {authRoutes, publicRoutes} from "../routes";
 import {SHOP_ROUTE} from "../utils/consts";
-import {useTypedSelector} from "../hooks/useTypedSelector";
+import {Context} from "../index";
 
 const AppRouter = () => {
-    const {isAuth} = useTypedSelector(state => state.user)
+    const {user} = useContext(Context)
 
     return (
         <Switch>
-            {isAuth && authRoutes.map(({path, Component}) =>
+            {user.isAuth && authRoutes.map(({path, Component}) =>
                 <Route key={path} exact path={path} component={Component}/>
             )}
             {publicRoutes.map(({path, Component}) =>
