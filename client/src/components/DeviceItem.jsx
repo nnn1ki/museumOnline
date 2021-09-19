@@ -1,5 +1,5 @@
 import React from 'react';
-import {Card, Col, Image, Row} from "react-bootstrap";
+import {Card, Col, Image} from "react-bootstrap";
 import rating from "../assets/images/rating.png";
 import {useHistory} from "react-router-dom";
 import {DEVICE_ROUTE} from "../utils/consts";
