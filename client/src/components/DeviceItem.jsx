@@ -15,7 +15,7 @@ const DeviceItem = ({device}) => {
                 className="p-2"
                 onClick={() => history.push(DEVICE_ROUTE + '/' + device.id)}
             >
-                <Image style={{margin: "auto"}} height={100} src={device.img}/>
+                <Image style={{margin: "auto"}} height={100} src={process.env.REACT_APP_API_URL + device.img}/>
 
                 <div className="d-flex justify-content-between mt-2">
                     <div>Apple</div>

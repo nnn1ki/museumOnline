@@ -15,7 +15,7 @@ const DevicePage = () => {
         <Container>
             <Row className="mt-3">
                 <Col md={4}>
-                    <Image height={300} src={device.img}/>
+                    <Image height={300} src={process.env.REACT_APP_API_URL + device.img}/>
                 </Col>
                 <Col md={4}>
                     <div style={{fontSize: 24, fontWeight: "bold"}}>{device.name}</div>

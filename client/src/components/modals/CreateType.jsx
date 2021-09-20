@@ -1,9 +1,14 @@
-import React, {useContext} from 'react';
-import {Button, Dropdown, Form, Modal} from "react-bootstrap";
-import {Context} from "../../index";
+import React, {useState} from 'react';
+import {Button, Form, Modal} from "react-bootstrap";
+import {createType} from "../../api/deviceAPI";
 
 const CreateType = ({show, onHide}) => {
-    const {device} = useContext(Context);
+    const [value, setValue] = useState();
+
+    const addType = () => {
+        createType({name: value}).then(res => setValue(''));
+        onHide();
+    };
 
     return (
         <Modal
@@ -19,19 +24,16 @@ const CreateType = ({show, onHide}) => {
             </Modal.Header>
             <Modal.Body>
                 <Form>
-                    <Dropdown>
-                        <Dropdown.Toggle>Выберите тип</Dropdown.Toggle>
-                        <Dropdown.Menu>
-                            {device.types.map(type =>
-                                <Dropdown.Item key={type.id}>{type.name}</Dropdown.Item>
-                            )}
-                        </Dropdown.Menu>
-                    </Dropdown>
+                    <Form.Control
+                        value={value}
+                        onChange={e => setValue(e.target.value)}
+                        placeholder="Введите название типа"
+                    />
                 </Form>
             </Modal.Body>
             <Modal.Footer>
                 <Button variant="outline-danger" onClick={onHide}>Закрыть</Button>
-                <Button variant="outline-success" onClick={onHide}>Добавить</Button>
+                <Button variant="outline-success" onClick={addType}>Добавить</Button>
             </Modal.Footer>
         </Modal>
     );

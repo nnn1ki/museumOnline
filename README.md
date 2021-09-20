@@ -10,3 +10,9 @@
 1. `React js` - JavaScript-библиотека<br>
 2. `Axios` - JavaScript-библиотека, основанная на обещаниях, для выполнения HTTP-запросов<br>
 3. `React-router-dom` - навигация<br>
+4. `Mobx-react-lite` - управление состоянием.
+
+#### Запуск проекта
+1. Создать базу postgres, указать данные в .env файле
+2. online-store\server => npm run dev
+3. online-store\client => npm run start
