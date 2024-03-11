@@ -10,14 +10,24 @@ const path = require('path')
 
 const PORT = process.env.PORT || 5000
 
-const app = express()
-app.use(cors())
-app.use(express.json())
-app.use(express.static(path.resolve(__dirname, 'static')))
-app.use(fileUpload({}))
-app.use('/api', router)
+const app = express();
+
+// cors() - middleware для обработки CORS (Cross-Origin Resource Sharing), что позволяет вашему серверу принимать запросы от разных доменов.
+// express.json() - middleware для обработки JSON в теле запроса.
+// express.static() - middleware для обслуживания статических файлов из директории 'static'.
+// fileUpload({}) - middleware для обработки загрузки файлов.
+app.use(cors());
+app.use(express.json());
+app.use(express.static(path.resolve(__dirname, 'static')));
+app.use(fileUpload({}));
+app.use('/api', router);// Устанавливается префикс /api для всех маршрутов, определенных в роутере
 
 app.use(errorHandler)
+
+// Запускается функция start, которая:
+// Проверяет подключение к базе данных с использованием sequelize.authenticate().
+// Синхронизирует модели с базой данных с использованием sequelize.sync().
+// Запускает сервер на указанном порту.
 
 const start = async () => {
     try {
@@ -29,4 +39,4 @@ const start = async () => {
     }
 }
 
-start()
+start();

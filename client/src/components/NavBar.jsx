@@ -1,6 +1,6 @@
 import React, {useContext} from 'react';
 import {Button, Container, Nav, Navbar} from "react-bootstrap";
-import {ADMIN_ROUTE, LOGIN_ROUTE, SHOP_ROUTE} from "../utils/consts";
+import {ADMIN_ROUTE, BASKET_ROUTE, LOGIN_ROUTE, SHOP_ROUTE} from "../utils/consts";
 import {Context} from "../index";
 import {observer} from "mobx-react-lite";
 import {useHistory} from "react-router-dom";
@@ -16,30 +16,37 @@ const NavBar = observer(() => {
     };
 
     return (
-        <Navbar bg="dark" variant="dark">
+        <Navbar bg="white" variant="white">
             <Container className="px-3">
                 <Navbar.Brand href={SHOP_ROUTE}>Онлайн магазин</Navbar.Brand>
 
                 {user.isAuth ?
                     <Nav>
                         <Button
-                            variant="outline-light"
+                            variant="outline-dark"
                             onClick={() => history.push(ADMIN_ROUTE)}
                         >
                             Админ панель
                         </Button>
                         <Button
                             className="ml-2"
-                            variant="outline-light"
+                            variant="outline-dark"
                             onClick={() => logOut()}
                         >
                             Выйти
                         </Button>
+                        <Button
+                            variant="outline-dark"
+                            onClick={() => history.push(BASKET_ROUTE)}
+                        >
+                            Корзина
+                        </Button>
                     </Nav>
                     :
                     <Nav>
-                        <Button variant="outline-light" onClick={() => history.push(LOGIN_ROUTE)}>Авторизация</Button>
+                        <Button variant="outline-dark" onClick={() => history.push(LOGIN_ROUTE)}>Авторизация</Button>
                     </Nav>
+
                 }
             </Container>
         </Navbar>

@@ -1,42 +1,73 @@
-import React, {useContext, useEffect} from 'react';
-import {Col, Container, Row} from "react-bootstrap";
-import TypeBar from "../components/TypeBar";
-import BrandBar from "../components/BrandBar";
-import DeviceList from "../components/DeviceList";
-import {observer} from "mobx-react-lite";
-import {Context} from "../index";
-import {fetchBrands, fetchDevices, fetchTypes} from "../api/deviceAPI";
-import OSPagination from "../components/OSPagination";
+import React, {useContext, useEffect, useState} from 'react';
+import {Button, Col, Container, FormControl, InputGroup, Row} from "react-bootstrap";
+
+import MySlider from "../components/MySlider";
+import ProductList from "../components/ProductList";
+import { observer } from "mobx-react-lite";
+import { Context } from "../index";
+import {getAllProducts, setProduct} from "../api/productAPI";
+import { searchProduct } from "../api/productAPI";
+import { ProductStore } from "../store/ProductStore";
 
 const Shop = observer(() => {
-    const {device} = useContext(Context);
+    const { product } = useContext(Context);
+    const [searchTerm, setSearchTerm] = useState('');
 
     useEffect(() => {
-        fetchTypes().then(data => device.setTypes(data));
-        fetchBrands().then(data => device.setBrands(data));
-        fetchDevices(null, null, 1, 2).then(data => {
-            device.setDevices(data.rows);
-            device.setTotalCount(data.count);
+        getAllProducts().then((data) => {
+            if (data) {
+                product.setProducts(data);
+            }
         });
-    }, [])
+    }, [product]);
 
-    useEffect(() => {
-        fetchDevices(device.selectedType.id, device.selectedBrand.id, device.page, 2).then(data => {
-            device.setDevices(data.rows);
-            device.setTotalCount(data.count);
-        });
-    }, [device.selectedType, device.selectedBrand, device.page])
+
+
+
+    // для поиска
+    const handleSearch = async () => {
+        try {
+            const result = await searchProduct(searchTerm);
+            product.setSearchProduct(result);
+            console.log(result);
+        } catch (error) {
+            console.error('Error searching products:', error);
+            // product.setSearchProduct([]); // Если произошла ошибка, устанавливаем пустой массив
+            getAllProducts().then((data) => {
+                if (data) {
+                    product.setProducts(data);
+                }
+            });
+
+        }
+    };
+
 
     return (
-        <Container>
+
+        <Container fluid>
             <Row className="mt-3">
-                <Col md={3}>
-                    <TypeBar/>
+                <Col md={{ span: 4, offset: 4 }}>
+                    <InputGroup className="mb-3">
+                        <FormControl
+                            placeholder="Поиск товаров..."
+                            aria-label="Search products"
+                            aria-describedby="basic-addon2"
+                            value={searchTerm}
+                            onChange={(e) => setSearchTerm(e.target.value)}
+                        />
+                        <Button variant="outline-secondary" id="button-addon2" onClick={handleSearch}>
+                            Поиск
+                        </Button>
+                    </InputGroup>
                 </Col>
-                <Col md={9}>
-                    <BrandBar/>
-                    <DeviceList/>
-                    <OSPagination/>
+            </Row>
+
+            {/* Главная область с отступами */}
+            <Row className="mt-3">
+                <Col md={{ span: 8, offset: 2 }}>
+                    {/* Здесь логика отображения товаров */}
+                    <ProductList product={product}/>
                 </Col>
             </Row>
         </Container>

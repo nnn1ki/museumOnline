@@ -1,7 +1,6 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {Button, Col, Dropdown, Form, Modal, Row} from "react-bootstrap";
 import {Context} from "../../index";
-import {createDevice, fetchBrands, fetchTypes} from "../../api/deviceAPI";
 import {observer} from "mobx-react-lite";
 
 const CreateDevice = observer(({show, onHide}) => {
@@ -14,8 +13,8 @@ const CreateDevice = observer(({show, onHide}) => {
     });
 
     useEffect(() => {
-        fetchTypes().then(res => device.setTypes(res));
-        fetchBrands().then(res => device.setBrands(res));
+        // fetchTypes().then(res => device.setTypes(res));
+        // fetchBrands().then(res => device.setBrands(res));
     }, [])
 
     const addInfo = () => {
@@ -46,7 +45,7 @@ const CreateDevice = observer(({show, onHide}) => {
         formData.append('typeId', device.selectedType.id);
         formData.append('brandId', device.selectedBrand.id);
         formData.append('info', JSON.stringify(info));
-        createDevice(formData).then(data => onHide());
+        // createDevice(formData).then(data => onHide());
     };
 
     return (

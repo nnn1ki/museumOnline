@@ -1,35 +1,54 @@
 import React, {useContext, useState} from 'react';
 import {NavLink, useHistory, useLocation} from 'react-router-dom';
 import {Button, Card, Container, Form, Row} from "react-bootstrap";
-import {LOGIN_ROUTE, REGISTRATION_ROUTE, SHOP_ROUTE} from "../utils/consts";
-import {login, registration} from "../api/userAPI";
+import {ADMIN_ROUTE, LOGIN_ROUTE, REGISTRATION_ROUTE, SHOP_ROUTE} from "../utils/consts";
+import {getUserInfo, login, registration} from "../api/userAPI";
 import {observer} from "mobx-react-lite";
 import {Context} from "../index";
+import {userInfo} from "os";
+import {comparer} from "mobx";
+import {getOrderByUser} from "../api/orderAPI";
+
+//страница авторизации
+
 
 const Auth = observer(() => {
     const {user} = useContext(Context);
     const location = useLocation();
     const history = useHistory();
     const isLogin = location.pathname === LOGIN_ROUTE;
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    // const isLogin = true;
+    const [email_user, setEmail] = useState('');
+    const [password_user, setPassword] = useState('');
 
     const click = async () => {
         try {
-            let data;
             if (isLogin) {
-                data = await login(email, password);
-            } else {
-                data = await registration(email, password);
-            }
-            user.setUser(user);
-            user.setIsAuth(true);
+                // Выполняем вход и получаем токен
+                const decodedToken = await login(email_user, password_user);
 
+                const userInfo = await getUserInfo(email_user);
+                const userOrders = await getOrderByUser(userInfo.id_user);
+
+
+                // console.log(userInfo);
+                // console.log(userOrders);
+                console.log("userOrders - ", userOrders);
+                user.setUser(userInfo);
+                user.setOrders(userOrders);
+                user.setIsAuth(true);
+            } else {
+                await registration(email_user, password_user);
+            }
+
+            user.setIsAuth(true);
             history.push(SHOP_ROUTE);
+            // history.push(ADMIN_ROUTE);
         } catch (e) {
             alert(e.response.data.message);
         }
     };
+
 
     return (
         <Container
@@ -47,13 +66,13 @@ const Auth = observer(() => {
                     <Form.Control
                         className="mt-2"
                         placeholder="Введите ваш email"
-                        value={email}
+                        value={email_user}
                         onChange={e => setEmail(e.target.value)}
                     />
                     <Form.Control
                         className="mt-2"
                         placeholder="Введите ваш пароль"
-                        value={password}
+                        value={password_user}
                         onChange={e => setPassword(e.target.value)}
                         type="password"
                     />

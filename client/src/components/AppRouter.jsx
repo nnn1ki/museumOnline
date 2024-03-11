@@ -4,6 +4,8 @@ import {authRoutes, publicRoutes} from "../routes";
 import {SHOP_ROUTE} from "../utils/consts";
 import {Context} from "../index";
 
+// его можно не менять
+
 const AppRouter = () => {
     const {user} = useContext(Context)
 

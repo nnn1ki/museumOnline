@@ -1,7 +1,11 @@
 import {makeAutoObservable} from "mobx";
 
+// Этот класс используется для управления состоянием авторизации и информацией о пользователе в вашем приложении.
+// Когда состояние меняется, MobX автоматически обновляет все компоненты, которые зависят от этих данных.
+
 export default class DeviceStore {
     constructor() {
+
         this._types = [];
         this._brands = [];
         this._devices = [];
@@ -42,6 +46,7 @@ export default class DeviceStore {
     setTotalCount(count) {
         this._totalCount = count;
     }
+
 
     get types() {
         return this._types;

@@ -1,9 +1,12 @@
 import Admin from "./pages/Admin";
-import {ADMIN_ROUTE, BASKET_ROUTE, DEVICE_ROUTE, LOGIN_ROUTE, REGISTRATION_ROUTE, SHOP_ROUTE} from "./utils/consts";
+import {ADMIN_ROUTE, BASKET_ROUTE, LOGIN_ROUTE, REGISTRATION_ROUTE, SHOP_ROUTE} from "./utils/consts";
 import Basket from "./pages/Basket";
 import Shop from "./pages/Shop";
 import Auth from "./pages/Auth";
-import DevicePage from "./pages/DevicePage";
+
+
+// тут есть авторизация, похоже что только для админа, мы можем дбавить на это свои роли и функционал,
+// чтобы доло разделение ролей
 
 export const authRoutes = [
     {
@@ -28,9 +31,5 @@ export const publicRoutes = [
     {
         path: REGISTRATION_ROUTE,
         Component: Auth
-    },
-    {
-        path: DEVICE_ROUTE + '/:id',
-        Component: DevicePage
     }
 ]

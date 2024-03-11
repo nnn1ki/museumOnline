@@ -1,12 +1,12 @@
 import React, {useState} from 'react';
 import {Button, Form, Modal} from "react-bootstrap";
-import {createBrand} from "../../api/deviceAPI";
+// import {createBrand} from "../../api/deviceAPI";
 
 const CreateBrand = ({show, onHide}) => {
     const [value, setValue] = useState();
 
     const addBrand = () => {
-        createBrand({name: value}).then(res => setValue(''));
+        // createBrand({name: value}).then(res => setValue(''));/
         onHide();
     };
 
