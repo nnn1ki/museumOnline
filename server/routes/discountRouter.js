@@ -6,4 +6,5 @@ router.post('/', discountController.create);
 router.get('/', discountController.getAll);
 router.get('/:id', discountController.getOne);
 
+
 module.exports = router;
