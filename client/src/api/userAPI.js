@@ -1,6 +1,6 @@
 import {$authHost, $host} from "./axios";
 import jwt_decode from "jwt-decode";
-import UserStore from "../store/UserStore";
+import UserStore from "../museum/UserStore";
 
 // POST-запрос на сервер с данными пользователя (электронной почтой, паролем и ролью). После успешной регистрации,
 // токен, полученный от сервера, сохраняется в локальном хранилище браузера, и затем расшифровывается с использованием jwt_decode.

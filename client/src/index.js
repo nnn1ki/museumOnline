@@ -1,9 +1,9 @@
 import React, {createContext} from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
-import UserStore from "./store/UserStore";
-import DeviceStore from "./store/DeviceStore";
-import ProductStore from "./store/ProductStore";
+import UserStore from "./museum/UserStore";
+import DeviceStore from "./museum/DeviceStore";
+import ProductStore from "./museum/ProductStore";
 
 export const Context = createContext(null);
 

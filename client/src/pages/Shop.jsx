@@ -7,7 +7,7 @@ import { observer } from "mobx-react-lite";
 import { Context } from "../index";
 import {getAllProducts, setProduct} from "../api/productAPI";
 import { searchProduct } from "../api/productAPI";
-import { ProductStore } from "../store/ProductStore";
+import { ProductStore } from "../museum/ProductStore";
 
 const Shop = observer(() => {
     const { product } = useContext(Context);
