@@ -76,3 +76,5 @@ class ExhibitsController {
     }
 
 }
+
+module.exports = new ExhibitsController();
