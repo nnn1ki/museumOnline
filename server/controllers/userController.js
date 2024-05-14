@@ -1,16 +1,26 @@
+// const User = sequelize.define('User', {
+//     Id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+//     username: { type: DataTypes.TEXT, allowNull: false },
+//     email_user: { type: DataTypes.TEXT, allowNull: false },
+//     password_user: { type: DataTypes.TEXT, allowNull: false },
+//     role_user: { type: DataTypes.TEXT, allowNull: false }
+// });
+
 const ApiError = require('../error/ApiError')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
-const {User, Discount} = require('../models/models')
+const {User} = require('../models/models')
+const sequelize = require("../db");
+const {DataTypes} = require("sequelize");
 
-const generateJwt = (id, email_user, role) => {
-    return jwt.sign({id, email_user, role}, process.env.SECRET_KEY, {expiresIn: '24h'})
+const generateJwt = (Id, email_user, password_user, role_user) => {
+    return jwt.sign({Id, email_user, password_user, role_user}, process.env.SECRET_KEY, {expiresIn: '24h'})
 }
 
 class UserController {
 
     async registration(req, res, next) {
-        const {email_user, password_user, role} = req.body;
+        const {email_user, password_user, role_user} = req.body;
         if (!email_user || ! password_user) {
             return next(ApiError.badRequest('Некорректный email или password'))
         }

@@ -116,7 +116,7 @@ const Exhibits = sequelize.define('Exhibits', {
     Id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
     Name: { type: DataTypes.TEXT, allowNull: false },
     Description: { type: DataTypes.TEXT, allowNull: false },
-    Year_of_production: { type: DataTypes.INTEGER, allowNull: false },
+    Year_production: { type: DataTypes.INTEGER, allowNull: false },
     Manufacturer: { type: DataTypes.TEXT, allowNull: false },
     CategoryId: { type: DataTypes.INTEGER, allowNull: false },
     Photo: { type: DataTypes.TEXT, allowNull: false },
@@ -127,7 +127,7 @@ const ExhibitionOrder = sequelize.define('ExhibitionOrder', {
     Id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
     ExcursionId: { type: DataTypes.INTEGER, allowNull: false },
     ExhibitsId: { type: DataTypes.INTEGER, allowNull: false },
-    Order: { type: DataTypes.INTEGER, allowNull: false }
+    Count: { type: DataTypes.INTEGER, allowNull: false }
 });
 
 const User = sequelize.define('User', {
@@ -135,8 +135,7 @@ const User = sequelize.define('User', {
     username: { type: DataTypes.TEXT, allowNull: false },
     email_user: { type: DataTypes.TEXT, allowNull: false },
     password_user: { type: DataTypes.TEXT, allowNull: false },
-    role_user: { type: DataTypes.TEXT, allowNull: false },
-    address_user: { type: DataTypes.TEXT, allowNull: false }
+    role_user: { type: DataTypes.TEXT, allowNull: false }
 });
 
 
@@ -153,7 +152,6 @@ module.exports = {
     Excursion,
     Exhibits,
     ExhibitionOrder,
-    User,
-    Discount
+    User
 };
 
